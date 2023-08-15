@@ -35,7 +35,7 @@ function playRound(playerChoice, compChoice) {
                 return "You Lose! Scissors beats Paper!";
         }
     }
-    else { //option for scissors
+    else if (lChoice === "scissors") { 
         switch (compChoice) {
             case "rock":
                 return "You Lose! Rock beats Scissors!";
@@ -45,9 +45,43 @@ function playRound(playerChoice, compChoice) {
                 return "Draw!";
         }
     }
+    else return "Please pick one of rock, paper, or scissors";
 }
 
 // const playerSelection = "scissors";
 // const compSelection = getComputerChoice();
 // console.log(compSelection);
 // console.log(playRound(playerSelection, compSelection));
+
+function game() {
+    let playerWins = 0;
+    let compWins = 0; 
+    let round = 1;
+    // let string = playRound("rock", getComputerChoice());
+    alert("Let the game begin!");
+    let playerSelection = prompt("Rock, paper, or scissors?");
+    let compSelection = getComputerChoice()
+    console.log(compSelection);
+    let result = playRound(playerSelection, compSelection);
+
+    if (result.toLowerCase().slice(0, 8) === "you win!") {
+        playerWins++;
+        alert(`You won round ${round}`);
+        round++;
+    }
+    else if (result.toLowerCase().slice(0, 8) === "you lose") {
+        compWins++;
+        alert(`You lost round ${round}`);
+        round++;
+    }
+    else if (result.toLowerCase().slice(0, 8) === "Draw!") {
+        playerWins++;
+        compWins++; 
+        alert("You drew");
+    }
+    else alert(result);
+    // console.log(string);
+    // console.log(string.slice(0,8));
+}
+
+game();
