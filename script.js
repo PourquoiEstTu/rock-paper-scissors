@@ -48,62 +48,46 @@ function playRound(playerChoice, compChoice) {
     else return "Please pick one of rock, paper, or scissors";
 }
 
-// const playerSelection = "scissors";
-// const compSelection = getComputerChoice();
-// console.log(compSelection);
-// console.log(playRound(playerSelection, compSelection));
+let playerWins = 0;
+let compWins = 0; 
+let round = 0;
 
-function game() {
-    let playerWins = 0;
-    let compWins = 0; 
-    let playerSelection;
-    let compSelection;
-    let result;
-    // let string = playRound("rock", getComputerChoice());
-    alert("Let the game begin!");
-    let round = 1;
-    while (round <= 5) {
-        playerSelection = prompt("Rock, paper, or scissors?");
-        compSelection = getComputerChoice()
-        // console.log(compSelection);
-        result = playRound(playerSelection, compSelection);
+const resultDiv = document.querySelector("div");
+resultDiv.textContent = "Let the game begin!";
 
-        if (result.toLowerCase().slice(0, 8) === "you win!") {
-            playerWins++;
-            alert(`You won round ${round}`);
-            round++;
-        }
-        else if (result.toLowerCase().slice(0, 8) === "you lose") {
-            compWins++;
-            alert(`You lost round ${round}`);
-            round++;
-        }
-        else if (result.toLowerCase().slice(0, 8) === "Draw!") {
-            playerWins++;
-            compWins++; 
-            alert("You drew");
-            round++;
-        }
-        else {
-            alert(result);
-        }
-        // console.log(string);
-        // console.log(string.slice(0,8));
-        // console.log("Round: " + round);
-        // console.log("playerWins: " + playerWins);
-        // console.log("compWins: " + compWins);
+const btns = document.querySelectorAll("button");
+btns.forEach((btn) => btn.addEventListener("click", () => {
+    let playerSelection = btn.textContent;
+    let compSelection = getComputerChoice();
+    let result = playRound(playerSelection, compSelection);
+
+    if (result.toLowerCase().slice(0, 8) === "you win!") {
+        playerWins++;
+        round++;
+        resultDiv.textContent = `You win round ${round}! The score is ${playerWins} - ${compWins} to you!`;
+    }
+    else if (result.toLowerCase().slice(0, 8) === "you lose") {
+        compWins++;
+        round++;
+        resultDiv.textContent = `You lose round ${round}! The score is ${playerWins} - ${compWins} to you!`;
+    }
+    else if (result.toLowerCase().slice(0, 8) === "draw!") {
+        round++;
+        resultDiv.textContent = `You drew round ${round}! The score is ${playerWins} - ${compWins} to you!`;
     }
 
-    if (playerWins > compWins) alert("You Win!");
-    else if (compWins > playerWins) alert("You Lose.");
-    else return alert("You Drew.");
-
-}
-const btns = document.querySelectorAll("button");
-btns.forEach((btn) => btn.addEventListener("click", 
-    () => playRound(btn.textContent, getComputerChoice())));
-// console.log(btns);
-
-// document.querySelector("div");
-
-// game();
+    if (playerWins === 5) {
+        resultDiv.textContent = `You win the game! The score is ${playerWins} - ${compWins} to you!`;
+        playerWins = 0;
+        compWins = 0;
+        round = 0;
+        resultDiv.textContent += "Time for a new game!"
+    }
+    else if (compWins === 5) {
+        resultDiv.textContent = `You lose the game. The score is ${playerWins} - ${compWins} to you.`;
+        playerWins = 0;
+        compWins = 0;
+        round = 0;
+        resultDiv.textContent += "Time for a new game."
+    }
+}));
