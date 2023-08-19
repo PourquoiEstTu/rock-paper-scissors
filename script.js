@@ -56,32 +56,47 @@ function playRound(playerChoice, compChoice) {
 function game() {
     let playerWins = 0;
     let compWins = 0; 
-    let round = 1;
+    let playerSelection;
+    let compSelection;
+    let result;
     // let string = playRound("rock", getComputerChoice());
     alert("Let the game begin!");
-    let playerSelection = prompt("Rock, paper, or scissors?");
-    let compSelection = getComputerChoice()
-    console.log(compSelection);
-    let result = playRound(playerSelection, compSelection);
+    let round = 1;
+    while (round <= 5) {
+        playerSelection = prompt("Rock, paper, or scissors?");
+        compSelection = getComputerChoice()
+        // console.log(compSelection);
+        result = playRound(playerSelection, compSelection);
 
-    if (result.toLowerCase().slice(0, 8) === "you win!") {
-        playerWins++;
-        alert(`You won round ${round}`);
-        round++;
+        if (result.toLowerCase().slice(0, 8) === "you win!") {
+            playerWins++;
+            alert(`You won round ${round}`);
+            round++;
+        }
+        else if (result.toLowerCase().slice(0, 8) === "you lose") {
+            compWins++;
+            alert(`You lost round ${round}`);
+            round++;
+        }
+        else if (result.toLowerCase().slice(0, 8) === "Draw!") {
+            playerWins++;
+            compWins++; 
+            alert("You drew");
+            round++;
+        }
+        else {
+            alert(result);
+        }
+        // console.log(string);
+        // console.log(string.slice(0,8));
+        // console.log("Round: " + round);
+        // console.log("playerWins: " + playerWins);
+        // console.log("compWins: " + compWins);
     }
-    else if (result.toLowerCase().slice(0, 8) === "you lose") {
-        compWins++;
-        alert(`You lost round ${round}`);
-        round++;
-    }
-    else if (result.toLowerCase().slice(0, 8) === "Draw!") {
-        playerWins++;
-        compWins++; 
-        alert("You drew");
-    }
-    else alert(result);
-    // console.log(string);
-    // console.log(string.slice(0,8));
+
+    if (playerWins > compWins) alert("You Win!");
+    else if (compWins > playerWins) alert("You Lose.");
+    else return alert("You Drew.");
 }
 
 game();
