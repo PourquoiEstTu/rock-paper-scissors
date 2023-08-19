@@ -97,6 +97,13 @@ function game() {
     if (playerWins > compWins) alert("You Win!");
     else if (compWins > playerWins) alert("You Lose.");
     else return alert("You Drew.");
-}
 
-game();
+}
+const btns = document.querySelectorAll("button");
+btns.forEach((btn) => btn.addEventListener("click", 
+    () => playRound(btn.textContent, getComputerChoice())));
+// console.log(btns);
+
+// document.querySelector("div");
+
+// game();
